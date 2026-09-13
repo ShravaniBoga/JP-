@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Theme tokens ---------- */
+/* Dark theme (default) */
+:root {
+  --c-ink: #0f1720;
+  --c-ink-light: #161f2b;
+  --c-ink-soft: #1e2a38;
+  --c-ivory: #f5f1e8;
+  --c-ivory-dim: #dad3c2;
+}
+
+/* Light theme — toggled via a `.light` class on <html> */
+html.light {
+  --c-ink: #f6f2ea;
+  --c-ink-light: #ece4d3;
+  --c-ink-soft: #e2d8c2;
+  --c-ivory: #1b2129;
+  --c-ivory-dim: #3a3226;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body,
+header,
+section,
+footer {
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  @apply bg-ink text-ivory font-sans antialiased;
+}
+
+/* thin, luxe scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--c-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--c-ink-soft);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c9a66b;
+}
+
+/* visible keyboard focus, accessibility floor */
+:focus-visible {
+  outline: 2px solid #c9a66b;
+  outline-offset: 3px;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* ---------- Marquee (Amenities ping-pong scroller) ---------- */
+@keyframes marquee-x {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(var(--marquee-distance, -50%));
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.marquee-track {
+  animation: marquee-x var(--marquee-duration, 28s) ease-in-out infinite;
+}
+.marquee-track:hover,
+.marquee-track.is-paused {
+  animation-play-state: paused;
+}
+
+/* ---------- Slow Ken Burns zoom, used for the Location image ---------- */
+@keyframes ken-burns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.12) translate(-1.5%, -1%);
+  }
+  100% {
+    transform: scale(1) translate(0, 0);
+  }
+}
+.animate-ken-burns {
+  animation: ken-burns 18s ease-in-out infinite;
+}
+
+/* ---------- CTA pulse ring, used on the Enquiry "call now" button ---------- */
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(201, 166, 107, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(201, 166, 107, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(201, 166, 107, 0);
+  }
+}
+.animate-pulse-ring {
+  animation: pulse-ring 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
