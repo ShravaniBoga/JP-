@@ -371,6 +371,7 @@ export default function Hero() {
               times: [0, 0.15, 0.85, 1],
             }}
           />
+          {/* j */}
         </div>
       </motion.div>
     </section>
